@@ -8,18 +8,12 @@
     "scheme": "hawyat",
     "userInterfaceStyle": "automatic",
     "backgroundColor": "#1e1a15",
-    "runtimeVersion": { "policy": "sdkVersion" },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.hawyat.app"
-    },
-    "android": {
-      "package": "com.hawyat.app",
-      "adaptiveIcon": {
-        "backgroundColor": "#1e1a15",
-        "foregroundImage": "./assets/images/adaptive-icon.png"
-      },
-      "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "single",
@@ -47,6 +41,10 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "platforms": [
+      "ios",
+      "web"
+    ]
   }
 }
