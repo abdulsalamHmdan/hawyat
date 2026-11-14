@@ -1,0 +1,75 @@
+{
+  "expo": {
+    "name": "الحاويات",
+    "slug": "hawyat",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "hawyat",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#1e1a15",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.hawyat.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#1e1a15",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 160
+        }
+      ],
+      "expo-font",
+      [
+        "expo-localization",
+        {
+          "supportsRTL": true,
+          "forcesRTL": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {}
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "نستخدم موقعك عشان نحدد مكان المخيم.",
+          "locationAlwaysAndWhenInUsePermission": "لو فعّلت «أعلن وصولي تلقائيًا»، التطبيق يعرف لما تدخل حدود المخيم أو تطلع منها، ويبلّغ الشباب. ما نحفظ موقعك.",
+          "locationAlwaysPermission": "لو فعّلت «أعلن وصولي تلقائيًا»، التطبيق يعرف لما تدخل حدود المخيم أو تطلع منها. ما نحفظ موقعك.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "عشان ترفق صورة الفاتورة أو التحويل أو صورتك.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "platforms": [
+      "ios",
+      "web"
+    ]
+  }
+}
