@@ -1,6 +1,13 @@
 import { Redirect } from 'expo-router';
 
-// المرحلة 1: نبدأ بشاشة الترحيب دايمًا. في المرحلة 2 نوجّه حسب حالة الدخول.
+import { useAuth, useMe } from '@/data/hooks';
+
+/** يوجّه حسب الحالة: ما دخل ← الترحيب، دخل وما انضم ← الاسم والكود، عضو ← الرئيسية. */
 export default function Index() {
-  return <Redirect href="/welcome" />;
+  const { userId } = useAuth();
+  const me = useMe();
+  if (!userId) return <Redirect href="/welcome" />;
+  if (me.isPending) return null;
+  if (!me.data) return <Redirect href="/profile-setup" />;
+  return <Redirect href="/home" />;
 }

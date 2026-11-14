@@ -101,14 +101,14 @@
 
 ## 7. التقنيات
 - **التطبيق:** Expo (آخر SDK مستقر) + TypeScript + Expo Router. من اليمين لليسار بالكامل. **آيفون فقط** (كل الشباب على iOS)، ما فيه نسخة أندرويد.
-- **قاعدة البيانات:** Neon (PostgreSQL)، والهجرات بـ Drizzle.
-- **الوصول للبيانات:** Neon Data API (متوافق مع PostgREST) من التطبيق مباشرة، والحماية كلها بسياسات Row Level Security. الـ Data API ما عنده صلاحيات خاصة فيه؛ أي جدول بدون سياسة صحيحة مكشوف.
+- **قاعدة البيانات:** Supabase (PostgreSQL)، والهجرات SQL في `supabase/migrations`.
+- **الوصول للبيانات:** Supabase Data API (PostgREST) من التطبيق مباشرة، والحماية كلها بسياسات Row Level Security وصلاحيات الأعمدة. أي جدول بدون سياسة صحيحة مكشوف.
 - **الدخول:** رمز من 6 أرقام على الإيميل (مجاني). **لا رسائل SMS** في التطبيق نهائيًا. شاشة الترحيب المرسومة برقم الجوال تتطبّق بنفس الشكل لكن بحقل إيميل.
-- **الخادم:** Neon (Data API + Neon Auth + RLS). لو طلع Neon ما يكفي (مثلًا الدخول بالإيميل أو التخزين)، البديل Supabase.
-- **وظائف صغيرة بدون خادم** (Cloudflare Workers أو Vercel Functions، أو Supabase Edge Functions لو استخدمنا Supabase): تنادي Expo Push لإرسال الإشعارات (Expo Push يكفي للتوصيل على آيفون، ما نحتاج خدمة إشعارات ثانية)، وإنشاء القطة الشهرية، والتذكيرات المجدولة (Cron). هذي الأشياء ما تقدر تصير من الجوال ولا من Data API.
+- **الخادم:** Supabase بدل Neon: الدخول بالإيميل والمهام المجدولة والتخزين كلها فيه ومجانية، فما نحتاج خدمة ثانية.
+- **المهام المجدولة والإشعارات داخل القاعدة** (pg_cron + pg_net): طابور إشعارات يُرسل لـ Expo Push كل دقيقة (Expo Push يكفي للتوصيل على آيفون)، وإنشاء القطة الشهرية، والتذكيرات المجدولة (Cron). هذي الأشياء ما تقدر تصير من الجوال ولا من Data API.
 - **الإشعارات:** إشعارات التطبيق فقط (Push)، بدون SMS. expo-notifications + Expo Push Service، مع أزرار إجراءات للرد على الدعوة.
 - **الموقع:** expo-location + expo-task-manager (geofencing بالخلفية). يحتاج Development Build، ما يشتغل في Expo Go.
-- **الصور:** صور الفواتير والتحويلات في تخزين رخيص (Cloudflare R2 أو ما يقترحه Neon).
+- **الصور:** Supabase Storage: `avatars` و`expense-receipts` (لأعضاء المخيم) و`payment-receipts` (لصاحبها ومنشئ القطة فقط).
 
 ## 8. نموذج البيانات المبدئي
 - `camps`: id, name, invite_code, fund_manager_id, monthly_amount (300), center_lat, center_lng, radius_m

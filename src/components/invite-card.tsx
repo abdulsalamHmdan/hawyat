@@ -19,6 +19,7 @@ export const TREAT_ICON: Record<NonNullable<Session['treat']> | 'none', LucideIc
   none: Tent,
 };
 
+/** «محمد عازمكم على عشاء» / «محمد وصل المخيم». name = صاحب العزيمة أو اللي بادر. */
 export function inviteHeadline(name: string, s: Pick<Session, 'kind' | 'treat'>) {
   if (s.treat) return `${name} عازمكم على ${TREAT_LABEL[s.treat]}`;
   return s.kind === 'arrived' ? `${name} وصل المخيم` : `${name} رايح المخيم`;

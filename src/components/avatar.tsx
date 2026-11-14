@@ -73,13 +73,13 @@ export function Avatar({
 }
 
 /** صورة رمزية مع الاسم وسطر صغير تحتها (الرئيسية). */
-export function Person({ name, sub, present }: { name: string; sub: string; present?: boolean }) {
+export function Person({ name, sub, present, uri }: { name: string; sub: string; present?: boolean; uri?: string }) {
   return (
     <View
       style={{ width: size.person, alignItems: 'center', gap: 6 }}
       accessible
       accessibilityLabel={`${name}، ${sub}`}>
-      <Avatar name={name} present={present} />
+      <Avatar name={name} present={present} uri={uri} />
       <View style={{ alignItems: 'center', marginTop: space[1] }}>
         <Txt v="smallStrong" numberOfLines={1}>
           {name}

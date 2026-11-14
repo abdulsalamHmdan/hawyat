@@ -2,6 +2,7 @@
 # - كل Pull Request: ينشر نسخة معاينة ويحط تعليق فيه QR ورابط.
 # - كل دمج في main: ينشر النسخة الأساسية.
 # يحتاج سر EXPO_TOKEN في إعدادات المستودع (Settings > Secrets and variables > Actions).
+# ومتغيرات SUPABASE_URL و SUPABASE_PUBLISHABLE_KEY (Variables) عشان يتصل بقاعدة البيانات.
 name: EAS Update
 
 on:
@@ -21,6 +22,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      # عناوين عامة (مو أسرار). لو فاضية يشتغل التطبيق بالنسخة التجريبية.
+      EXPO_PUBLIC_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+      EXPO_PUBLIC_SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
     steps:
       - name: تأكد من وجود EXPO_TOKEN
         env:

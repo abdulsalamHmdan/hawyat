@@ -13,7 +13,10 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.hawyat.app"
+      "bundleIdentifier": "com.hawyat.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "web": {
       "output": "single",
@@ -35,6 +38,28 @@
         {
           "supportsRTL": true,
           "forcesRTL": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {}
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "نستخدم موقعك عشان نحدد مكان المخيم.",
+          "locationAlwaysAndWhenInUsePermission": "لو فعّلت «أعلن وصولي تلقائيًا»، التطبيق يعرف لما تدخل حدود المخيم أو تطلع منها، ويبلّغ الشباب. ما نحفظ موقعك.",
+          "locationAlwaysPermission": "لو فعّلت «أعلن وصولي تلقائيًا»، التطبيق يعرف لما تدخل حدود المخيم أو تطلع منها. ما نحفظ موقعك.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "عشان ترفق صورة الفاتورة أو التحويل أو صورتك.",
+          "cameraPermission": false,
+          "microphonePermission": false
         }
       ]
     ],

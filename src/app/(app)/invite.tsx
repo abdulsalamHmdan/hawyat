@@ -12,7 +12,9 @@ import { inviteHeadline } from '@/components/invite-card';
 import { useCardShadow } from '@/components/surface';
 import { Txt } from '@/components/text';
 import { TREAT_LABEL } from '@/data/labels';
-import { useMock } from '@/data/mock';
+import { backend } from '@/data';
+import { errorText, useAction, useCamp } from '@/data/hooks';
+import { FormError } from '@/components/form-error';
 import type { SessionKind, Treat } from '@/data/types';
 import { formatTime } from '@/lib/format';
 import { gap, radius, shape, size, space, useColors } from '@/theme';
@@ -39,7 +41,8 @@ export default function InviteSheet() {
   const sheetShadow = useCardShadow('sheet');
   const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
-  const { me, announce } = useMock();
+  const { member: me, camp } = useCamp();
+  const announce = useAction((p: Parameters<typeof backend.announce>[0]) => backend.announce(p), [['live']]);
   const [kind, setKind] = useState<SessionKind>('arrived');
   const [treat, setTreat] = useState<Treat | null>('tea');
   const [more, setMore] = useState(false);
@@ -52,10 +55,10 @@ export default function InviteSheet() {
       ? `${me.displayName} وصل المخيم${treat ? ` · عازمكم على ${TREAT_LABEL[treat]}` : ''}`
       : inviteHeadline(me.displayName, { kind, treat });
 
-  const send = () => {
-    announce({ kind, treat, atTime: time >= 0 ? opts[time] : null, message: message.trim() || undefined });
-    router.back();
-  };
+  const send = () =>
+    announce.mutate([{ campId: camp.id, kind, treat, atTime: time >= 0 ? opts[time] : null, message: message.trim() || undefined }], {
+      onSuccess: () => router.back(),
+    });
 
   return (
     <View style={{ flex: 1, backgroundColor: c.scrim, justifyContent: 'flex-end' }}>
@@ -88,7 +91,7 @@ export default function InviteSheet() {
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: space[3] }}>
                 <View style={{ flex: 1 }}>
                   <Txt v="sheetTitle" accessibilityRole="header">
-                    وصلت المخيم
+                    {kind === 'arrived' ? 'وصلت المخيم' : 'رايح المخيم'}
                   </Txt>
                   <Txt v="body" c="inkMuted">
                     وش تبي تقول للشباب؟
@@ -176,7 +179,16 @@ export default function InviteSheet() {
                 </View>
               </View>
 
-              <Button label="بلّغ الشباب" icon={Bell} variant="ember" large block onPress={send} />
+              <FormError text={announce.error ? errorText(announce.error) : null} />
+              <Button
+                label={announce.isPending ? 'لحظة...' : 'بلّغ الشباب'}
+                icon={Bell}
+                variant="ember"
+                large
+                block
+                disabled={announce.isPending}
+                onPress={send}
+              />
             </ScrollView>
         </Animated.View>
       </KeyboardAvoidingView>

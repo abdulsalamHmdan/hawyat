@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
 import { ArrowRight, X, type LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
-import { ScrollView, View, type ScrollViewProps } from 'react-native';
+import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, View, type ScrollViewProps } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { radius, size, space, useColors } from '@/theme';
 
-import { IconButton } from './button';
+import { Button, IconButton } from './button';
 import { Card, Divider } from './surface';
 import { Txt } from './text';
 
@@ -16,13 +16,25 @@ export function Screen({
   footer,
   gap = space[6],
   edges = ['top'],
+  onRefresh,
+  refreshing = false,
   ...scroll
-}: ScrollViewProps & { children: ReactNode; footer?: ReactNode; gap?: number; edges?: ('top' | 'bottom')[] }) {
+}: ScrollViewProps & {
+  children: ReactNode;
+  footer?: ReactNode;
+  gap?: number;
+  edges?: ('top' | 'bottom')[];
+  /** سحب للتحديث */
+  onRefresh?: () => void;
+  refreshing?: boolean;
+}) {
   const c = useColors();
   return (
     <SafeAreaView edges={edges} style={{ flex: 1, backgroundColor: c.surface }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
+        refreshControl={onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={c.olive} /> : undefined}
         {...scroll}
         contentContainerStyle={[
           { paddingHorizontal: space[4], paddingTop: space[4], paddingBottom: space[8], gap },
@@ -31,6 +43,7 @@ export function Screen({
         {children}
       </ScrollView>
       {footer}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -135,4 +148,33 @@ export function IconTile({ icon: Icon, tone = 'ember' }: { icon: LucideIcon; ton
       <Icon size={size.icon + 2} color={tone === 'ember' ? c.ember : c.ink} strokeWidth={2} />
     </View>
   );
+}
+
+/** حالة تحميل أو خطأ بسيطة داخل الشاشة. */
+export function Status({ loading, error, onRetry, empty }: { loading?: boolean; error?: unknown; onRetry?: () => void; empty?: string }) {
+  if (loading) {
+    return (
+      <Txt v="bodySm" c="inkMuted" center>
+        لحظة...
+      </Txt>
+    );
+  }
+  if (error) {
+    return (
+      <View style={{ alignItems: 'center', gap: space[2] }}>
+        <Txt v="bodySm" c="inkMuted" center>
+          ما قدرنا نجيب البيانات. تأكد من الإنترنت.
+        </Txt>
+        {onRetry && <Button label="جرّب مرة ثانية" variant="quiet" onPress={onRetry} />}
+      </View>
+    );
+  }
+  if (empty) {
+    return (
+      <Txt v="bodySm" c="inkMuted" center>
+        {empty}
+      </Txt>
+    );
+  }
+  return null;
 }
