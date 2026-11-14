@@ -1,0 +1,60 @@
+/* الحاويات — مكونات الواجهة (مرجع بصري لتطبيق React Native). كل القيم من tokens.css. */
+body { margin: 0; font-family: var(--font-sans); background: var(--surface); color: var(--ink); direction: rtl; -webkit-font-smoothing: antialiased; }
+.hw-stage { padding: var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.hw-col { display: flex; flex-direction: column; gap: var(--space-3); }
+.hw-ico { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Button */
+.hw-btn { font: inherit; font-size: 15px; line-height: 20px; font-weight: 600; min-height: 48px; padding: 0 var(--space-6); border-radius: var(--radius-md); border: 1.5px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); cursor: pointer; }
+.hw-btn--primary { background: var(--olive); border-color: var(--olive); color: var(--on-olive); }
+.hw-btn--ember { background: var(--ember); border-color: var(--ember); color: var(--on-ember); }
+.hw-btn--quiet { background: transparent; border-color: transparent; color: var(--olive); padding: 0 var(--space-3); }
+.hw-btn--block { width: 100%; }
+.hw-btn:focus-visible, .hw-reply:focus-visible, .hw-presence:focus-visible, .hw-switch:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* PresenceButton — زر «وصلت المخيم» */
+.hw-presence { font: inherit; width: 156px; height: 156px; border-radius: var(--radius-full); border: 0; background: var(--olive); color: var(--on-olive); display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); cursor: pointer; box-shadow: 0 0 0 8px var(--olive-soft); }
+.hw-presence b { font-family: var(--font-display); font-size: 22px; line-height: 26px; font-weight: 700; }
+.hw-presence small { font-size: 13px; line-height: 18px; opacity: .9; }
+.hw-presence .hw-door { width: 44px; height: 36px; }
+.hw-presence--in { background: var(--night); color: var(--sand); box-shadow: 0 0 0 8px var(--ember-soft), 0 0 0 10px var(--glow); }
+
+/* StatusChip — حالة الدفع (يشوفها صاحبها ومنشئ القطة فقط) */
+.hw-chip { display: inline-flex; align-items: center; gap: var(--space-1); font-size: 13px; line-height: 18px; font-weight: 600; padding: 4px 10px 4px 12px; border-radius: var(--radius-full); }
+.hw-chip .hw-ico { width: 15px; height: 15px; stroke-width: 2.5; }
+.hw-chip--paid { background: var(--olive-soft); color: var(--olive); }
+.hw-chip--due { background: var(--ember-soft); color: var(--ember); }
+.hw-chip--neutral { background: var(--surface-sunken); color: var(--ink-muted); }
+
+/* QuickReply — أزرار الرد على الدعوة */
+.hw-replies { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.hw-reply { font: inherit; font-size: 15px; line-height: 20px; font-weight: 600; min-height: 40px; padding: 0 var(--space-4); border-radius: var(--radius-full); border: 1.5px solid var(--line-strong); background: var(--surface-raised); color: var(--ink); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.hw-reply--on { background: var(--olive); border-color: var(--olive); color: var(--on-olive); }
+.hw-reply--no { color: var(--ink-muted); }
+
+/* Avatar + presence */
+.hw-avatar { position: relative; width: 52px; height: 52px; border-radius: var(--radius-full); background: var(--surface-sunken); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 20px; flex: none; }
+.hw-avatar--in { box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--glow); }
+.hw-avatar--in::after { content: ""; position: absolute; bottom: 1px; left: 1px; width: 12px; height: 12px; border-radius: var(--radius-full); background: var(--glow); border: 2px solid var(--surface-raised); }
+.hw-person { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; width: 64px; text-align: center; }
+.hw-person span { font-size: 13px; line-height: 18px; font-weight: 600; }
+.hw-person small { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+
+/* Card */
+.hw-card { background: var(--surface-raised); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: var(--space-4); }
+.hw-card--night { background: var(--night); color: var(--sand); box-shadow: none; }
+.hw-card--night .hw-muted { color: var(--sand); opacity: .78; }
+.hw-muted { color: var(--ink-muted); }
+.hw-progress { height: 10px; border-radius: var(--radius-full); background: var(--surface-sunken); overflow: hidden; }
+.hw-progress > i { display: block; height: 100%; background: var(--olive); border-radius: var(--radius-full); }
+
+/* ToggleRow — تخصيص الإشعارات */
+.hw-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface-raised); border-bottom: 1px solid var(--line); }
+.hw-row:last-child { border-bottom: 0; }
+.hw-row .hw-row-text { flex: 1; display: flex; flex-direction: column; }
+.hw-row .hw-row-text b { font-size: 16px; line-height: 24px; font-weight: 600; }
+.hw-row .hw-row-text small { font-size: 13px; line-height: 20px; color: var(--ink-muted); }
+.hw-switch { position: relative; width: 52px; height: 32px; border-radius: var(--radius-full); border: 1.5px solid var(--line-strong); background: var(--surface-sunken); flex: none; cursor: pointer; padding: 0; }
+.hw-switch::after { content: ""; position: absolute; top: 3px; right: 3px; width: 23px; height: 23px; border-radius: var(--radius-full); background: var(--line-strong); }
+.hw-switch[aria-checked="true"] { background: var(--olive); border-color: var(--olive); }
+.hw-switch[aria-checked="true"]::after { right: auto; left: 3px; background: var(--on-olive); }
